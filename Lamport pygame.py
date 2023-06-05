@@ -2,15 +2,14 @@ import pygame  # Import the Pygame library for creating graphics and games
 import random  # Import the random module for generating random numbers
 import threading  # Import the threading module for running multiple threads simultaneously
 import time  # Import the time module for introducing delays in the program
-#from Lamport import LamportClock  # Import a custom class LamportClock from a module named Lamport
 
 # Simulation settings
-WIDTH = 800
-HEIGHT = 600
+WIDTH = 1024
+HEIGHT = 768
 BACKGROUND_COLOR = (255, 255, 255)  # White background color for the screen
 PROCESS_COLOR = (0, 0, 255)  # Blue color for the processes
 MESSAGE_COLOR = (255, 0, 0)  # Red color for the messages
-FONT_SIZE = 20
+FONT_SIZE = 50
 FONT_COLOR = (0, 0, 0)  # Black font color for the text
 
 # Class to represent a process
@@ -114,7 +113,7 @@ while running:
     pygame.display.flip()
 
     # Control the frame rate of the simulation
-    clock.tick(30)  # Limit the frame rate to 30 FPS
+    clock.tick(60)  # Limit the frame rate to 30 FPS
 
 # Cleanup the resources used by Pygame
 pygame.quit() 
