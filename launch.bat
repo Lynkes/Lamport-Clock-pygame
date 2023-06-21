@@ -52,7 +52,7 @@ if EXIST %ACCELERATE% goto :accelerate_launch
 
 :launch
 %PYTHON% launch.py %*
-%PYTHON% Lamport pygame.py %*
+%PYTHON% Lamport-pygame.py %*
 pause
 exit /b
 
