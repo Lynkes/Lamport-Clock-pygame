@@ -11,7 +11,8 @@ BACKGROUND_COLOR = (255, 255, 255)
 PROCESS_COLORS = [(255, 0, 0), (0, 255, 0), (0, 0, 255)]  # Cores fixas para cada processo
 PROCESS_COLOR = (0, 0, 255)
 FONT_SIZE = 30
-FONT_COLOR = (0, 0, 0)
+#FONT_COLOR = (0, 0, 0)
+FONT_COLOR = []
 MAX_MESSAGES = 20  # Número máximo de mensagens no histórico de cada processo
 
 # Class to represent a process
@@ -46,14 +47,14 @@ class Process(threading.Thread):
     def run(self):
         while True:
             self.send_message()
-            time.sleep(random.uniform(1.0, 2.0))  # Alteração da velocidade de envio
+            time.sleep(random.uniform(0.1, 0.2))  # Alteração da velocidade de envio
 
     def draw(self, surface):
         x, y = self.position
         pygame.draw.circle(surface, PROCESS_COLORS[self.process_id], (x, y), 30)  # Alteração da cor do processo
 
         font = pygame.font.Font(None, FONT_SIZE)
-        text = font.render("                   " + str(self.clock.get_time()), True, FONT_COLOR)
+        text = font.render("" + str(self.clock.get_time()), True, FONT_COLOR[self.process_id])
         text_rect = text.get_rect(center=(x, y))
         surface.blit(text, text_rect)
 
@@ -101,7 +102,17 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Simulação de Relógios de Lamport")
 clock = pygame.time.Clock()
 
-num_processes = 3
+num_processes = 32
+
+i=0
+while i<num_processes:
+    r = random.randrange(256)
+    g = random.randrange(256)
+    b = random.randrange(256)
+    PROCESS_COLORS.append([r,g,b])
+    FONT_COLOR.append([255-r,255-g,255-b])
+    i+=1
+    #PROCESS_COLORS = [(255, 0, 0), (0, 255, 0), (0, 0, 255)] 
 
 triangle_side = min(WIDTH, HEIGHT) * 0.4
 triangle_center = (WIDTH // 2, HEIGHT // 2)
@@ -128,6 +139,6 @@ while running:
         process.draw(screen)
 
     pygame.display.flip()
-    clock.tick(30)
+    clock.tick(500)
 
 pygame.quit()
